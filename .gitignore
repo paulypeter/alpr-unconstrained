@@ -3,3 +3,8 @@
 *.so
 *.csv
 data/
+*.h5
+*.png
+*.txt
+*.bak
+*.jpg
