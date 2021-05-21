@@ -74,7 +74,7 @@ if __name__ == '__main__':
 	model,model_stride,xshape,yshape = load_network(args.model,dim)
 
 	opt = getattr(keras.optimizers,args.optimizer)(lr=args.learning_rate)
-	model.compile(loss=loss, optimizer=opt)
+	model.compile(loss=loss, optimizer=opt)#, metrics=['accuracy'])
 
 	print('Checking input directory...')
 	Files = image_files_from_folder(train_dir)
@@ -110,8 +110,12 @@ if __name__ == '__main__':
 
 		Xtrain,Ytrain = dg.get_batch(batch_size)
 		train_loss = model.train_on_batch(Xtrain,Ytrain)
+		val_loss = model.test_on_batch(Xtrain,Ytrain)
 
-		print(('\tLoss: %f' % train_loss))
+		print('\tLoss: %f, Val-Loss: %f' % (train_loss, val_loss))
+
+		with open("log.csv", "a") as logfile:
+			logfile.write(f'{it+1};{train_loss};{val_loss}\n')
 
 		# Save model every 1000 iterations
 		if (it+1) % 1000 == 0:
