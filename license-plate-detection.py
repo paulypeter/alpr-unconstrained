@@ -47,8 +47,8 @@ if __name__ == '__main__':
 
 			if len(LlpImgs):
 				Ilp = LlpImgs[0]
-				Ilp = cv2.cvtColor(Ilp, cv2.COLOR_BGR2GRAY)
-				Ilp = cv2.cvtColor(Ilp, cv2.COLOR_GRAY2BGR)
+				# Ilp = cv2.cvtColor(Ilp, cv2.COLOR_BGR2GRAY)
+				# Ilp = cv2.cvtColor(Ilp, cv2.COLOR_GRAY2BGR)
 
 				s = Shape(Llp[0].pts)
 
