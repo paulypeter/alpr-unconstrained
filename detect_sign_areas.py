@@ -10,6 +10,7 @@ def scan_image(imgobj):
         np.mean(imgobj[:,x], axis=(0, 1)) #?
         colour_amount = {}
         for y in range(int(img_size[1])):
+            print(type(imgobj[y, x]))
             current_value = str(imgobj[y, x])
             if current_value in list(colour_amount.keys()):
                 colour_amount[current_value] += 1/img_size[1]
@@ -19,7 +20,6 @@ def scan_image(imgobj):
         percent.append(colour_amount)
     return averages, percent
 
-    # https://stackoverflow.com/a/62675780 -> colour distance
 
         # for y in range(int(img_size[1]/5)):    # iterate over height, use every 5th pixel
         #     point = imgobj[y * 5, x]
@@ -37,11 +37,14 @@ def detect_edge_by_avg(avg_array):
 
 def detect_edge_by_percent(percent_dict):
     return 0
-        
+
+def get_colour_percent_for_column(column_colour_perc, colour):
+    # https://stackoverflow.com/a/62675780 -> colour distance
+    return column_colour_perc[str(colour)]
 
 if __name__ == "__main__":
     imgpath = "samples/test/0002_lp.png"
     img = cv2.imread(imgpath)
     avs, percents = scan_image(img)
     #detect_edge(avs)
-    print(percents[len(percents) - 5])
+    # print(get_colour_percent_for_column(percents[-3], [0, 0, 0])) # TODO: colour input as ndarray
