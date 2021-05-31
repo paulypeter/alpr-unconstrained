@@ -4,11 +4,22 @@ import numpy as np
 def scan_image(imgobj):
     img_size = imgobj.shape[1::-1] # return (width, height)
     averages = []
+    percent = []
     for x in range(img_size[0]):    # iterate over width
         averages.append(np.average(imgobj[:,x]))
         np.mean(imgobj[:,x], axis=(0, 1)) #?
+        colour_amount = {}
+        for y in range(int(img_size[1])):
+            current_value = str(imgobj[y, x])
+            if current_value in list(colour_amount.keys()):
+                colour_amount[current_value] += 1/img_size[1]
+            else:
+                colour_amount[current_value] = 1/img_size[1]
         # https://stackoverflow.com/a/14350013 ?
-    return averages
+        percent.append(colour_amount)
+    return averages, percent
+
+    # https://stackoverflow.com/a/62675780 -> colour distance
 
         # for y in range(int(img_size[1]/5)):    # iterate over height, use every 5th pixel
         #     point = imgobj[y * 5, x]
@@ -31,5 +42,6 @@ def detect_edge_by_percent(percent_dict):
 if __name__ == "__main__":
     imgpath = "samples/test/0002_lp.png"
     img = cv2.imread(imgpath)
-    avs = scan_image(img)
-    detect_edge(avs)
+    avs, percents = scan_image(img)
+    #detect_edge(avs)
+    print(percents[len(percents) - 5])
