@@ -24,6 +24,12 @@ def scan_image(imgobj):
         #     point = imgobj[y * 5, x]
         #     #print(x, y * 5, point)
 
+def get_main_colour(column_colour_perc):
+    for colour in column_colour_perc.keys():
+        if column_colour_perc[colour] > 0.4:
+            return colour
+    return None
+
 def detect_edge_by_avg(avg_array):
     delta_arr = []
     delta_dict = {}
