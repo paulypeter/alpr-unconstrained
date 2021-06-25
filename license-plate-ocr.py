@@ -12,6 +12,8 @@ from src.label				import dknet_label_conversion
 from src.utils 				import nms
 
 
+# TODO: change number of classes in ocr-net.{cfg[region], data, names}
+
 if __name__ == '__main__':
 
 	try:
@@ -29,6 +31,7 @@ if __name__ == '__main__':
 		ocr_meta = dn.load_meta(ocr_dataset)
 
 		imgs_paths = sorted(glob('%s/*lp.png' % output_dir))
+		# imgs_paths = sorted(glob('%s/crop*.png' % output_dir))
 
 		print('Performing OCR...')
 
